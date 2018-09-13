@@ -5,12 +5,28 @@ $(document).ready(function () {
   const wordList = ["bearlephant", "incorrect", "magic", "console", "javascript", "five"];
   var gameStatus = true; //game is on
   console.log("gameStatus is: " + gameStatus);
-  let roundNo = 1;
-  
+  let roundNo = 0;
+  $("#roundDisp").html(roundNo);
 
+
+  // IN GAME MUSIC AND SOUNDS
+  var gameMusic = document.createElement("audio");
+  gameMusic.setAttribute("src", "assets/music/song.mp3");
+  var correctSound = document.createElement("audio");
+  correctSound.setAttribute("src", "assets/music/correctSound.mp3");
+  $("#musicPause").on("click", function(){
+    gameMusic.pause()
+  });
+  $("#musicPlay").on("click", function(){
+    gameMusic.play()
+  });
+
+
+  
+  // START GAME FUNCTION
   function startGame() {
     let playerName = prompt("Enter Your Name");
-    if (confirm("Press OK to play")) {
+    if (confirm("Welcome to Word Guesser 1.0. The instructions are simple- Guess the Word! Play by simply pressing a key on your keyboard to guess letters. You only get 5 lives incase you incorrectly guess a letter. Press OK to play")) {
       $("#playerName").html(playerName);
       round();
     }
@@ -18,9 +34,12 @@ $(document).ready(function () {
   }
 
 
-
+  // EACH ROUND FUNCTION
   function round() {
-    $("button").hide();
+    roundNo++
+    console.log("Round Number: " + roundNo);
+    $("#roundDisp").html(roundNo);
+    $(".nextRoundBTN").hide();
     $("#nextRound").hide();
     let lives = 5;
     $("#livesDisp").html(lives);
@@ -30,8 +49,6 @@ $(document).ready(function () {
 
 
     //PICKING MYSTERYWORD AND POSTING PLACEHOLDER
-
-    
     let rand = Math.floor(Math.random() * wordList.length);
     let mysteryWord = wordList[rand].split("");
     for (let i = 0; i < mysteryWord.length; i++) {
@@ -55,7 +72,7 @@ $(document).ready(function () {
       } else {
         wrongGuess.push(userGuess);
         lives--
-        $("#livesDisp").html(lives);
+        $("#lives").append(lives);
         $("#wrongLetters").prepend("<p class='tryagain'>" + userGuess + "</p><hr>");
         
       }
@@ -64,6 +81,8 @@ $(document).ready(function () {
         if (userGuess === mysteryWord[i]) {
           placeHolder[i] = userGuess;
           $("#wordDisp").html(placeHolder);
+          correctSound.play()
+
           
         }
       }
@@ -75,13 +94,11 @@ $(document).ready(function () {
       // console.log("mysteryWord is: " + mysteryWord)
 
       if (randWord == userWord) {
-        let placeHolder = [];
-        let wrongGuess = [];
-        $("button").show();
+        placeHolder = [];
+        wrongGuess = [];
+        $(".nextRoundBTN").show();
         $("#nextRound").show();
-        roundNo++
-        console.log("Round Number: " + roundNo);
-        $("#roundDisp").html(roundNo);
+      
         gameStatus = false; // game is off
         console.log("gameStatus is: " + gameStatus);
         console.log("### WINNER ###")
@@ -89,7 +106,7 @@ $(document).ready(function () {
         
 
         var nextRoundButton = $("<button>");
-        nextRoundButton.addClass("btn button warning");
+        nextRoundButton.addClass("btn button btn-success nextRoundBTN");
         nextRoundButton.attr("id", "nextRound");
         nextRoundButton.text("Next Round!")
         $("#nextRound").append(nextRoundButton);

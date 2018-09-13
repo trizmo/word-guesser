@@ -5,9 +5,13 @@ h1 {
 }
 
 .mysteryWord{
-  
+  margin-top:20px;
+  border: 2px solid rgb(116, 105, 105);
+  background-color:rgb(246, 114, 114);
+  border-radius: 5px;
   font-size: 2rem;
   font-family: 'Bungee Shade', cursive;
+  color:white;
   /* font-family: 'Mystery Quest', cursive;
   font-family: 'Russo One', sans-serif;
   font-family: 'Days One', sans-serif; */
