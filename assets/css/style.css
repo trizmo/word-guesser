@@ -1,0 +1,35 @@
+h1 {
+  color: darkred;
+  font-family: 'Days One', sans-serif;
+
+}
+
+.mysteryWord{
+  
+  font-size: 2rem;
+  font-family: 'Bungee Shade', cursive;
+  /* font-family: 'Mystery Quest', cursive;
+  font-family: 'Russo One', sans-serif;
+  font-family: 'Days One', sans-serif; */
+
+}
+
+.infoDisp {
+  color: darkred;
+  font-family: 'Days One', sans-serif;
+}
+
+data{
+  font-size: 1.5rem;
+}
+
+
+
+
+p.tryagain:first-of-type {
+  font-family: 'Mystery Quest', cursive;
+  font-size: 3rem;
+  color: red;
+
+}
+
