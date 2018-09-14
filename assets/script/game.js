@@ -3,10 +3,16 @@
 $(document).ready(function () {
   $("#nextRound").show();
   const wordList = ["hendricks", "bighetti", "dinesh", "gilfoyle", "monica", "jared", "gavin", "bachman", "bream", "gregory", "raviga", "compression", "hooli", "weissman"];
-  var gameStatus = true; //game is on
-  console.log("gameStatus is: " + gameStatus);
+  // var gameStatus = true; //game is on
   var roundNo = 0;
   $("#roundDisp").html(roundNo);
+  var wrongGuess = [];
+  var placeHolder = [];
+  var mysteryWord = [];
+  var randWord = "x";
+  var userWord = "y";
+  var gameStatus = true;
+  var lives = 5;
 
 
   // IN GAME MUSIC AND SOUNDS
@@ -37,20 +43,25 @@ $(document).ready(function () {
   // EACH ROUND FUNCTION
   function round() {
     roundNo++
+    gameStatus = true;
+    lives = 5;
+    placeHolder = [];
+    wrongGuess = [];
+    mysteryWord = [];
+    randWord = "x";
+    userWord = "y";
+    // console.log("gameStatus1 is: " + gameStatus);
     console.log("Round Number: " + roundNo);
     $("#roundDisp").html(roundNo);
     $(".nextRoundBTN").hide();
     $("#nextRound").hide();
-    var lives = 5;
-    $("#livesDisp").html(lives);
-    var placeHolder = [];
-    var wrongGuess = [];
+    $("#lives").html(lives);
 
 
 
     //PICKING MYSTERYWORD AND POSTING PLACEHOLDER
     var rand = Math.floor(Math.random() * wordList.length);
-    var mysteryWord = wordList[rand].split("");
+    mysteryWord = wordList[rand].split("");
     for (let i = 0; i < mysteryWord.length; i++) {
       placeHolder.push("_");
       $("#wordDisp").html(placeHolder);
@@ -82,26 +93,27 @@ $(document).ready(function () {
         if (userGuess === mysteryWord[i]) {
           placeHolder[i] = userGuess;
           $("#wordDisp").html(placeHolder);
+          console.log("placeHolder is: " + placeHolder)
           correctSound.play()
 
 
         }
       }
 
-      var randWord = mysteryWord.join("");
-      var userWord = placeHolder.join("");
+      randWord = mysteryWord.join("");
+      userWord = placeHolder.join("");
 
       // console.log("placeHolder is: " + placeHolder)
       // console.log("mysteryWord is: " + mysteryWord)
 
-      if (randWord == userWord) {
-        placeHolder = [];
-        wrongGuess = [];
+      if (randWord === userWord) {
+        // placeHolder = [];
+        // wrongGuess = [];
         $(".nextRoundBTN").show();
         $("#nextRound").show();
 
         gameStatus = false; // game is off
-        console.log("gameStatus is: " + gameStatus);
+        console.log("gameStatus2 is: " + gameStatus);
         console.log("### WINNER ###")
         $("#nextRound").html("WEENER!!");
 
@@ -116,6 +128,8 @@ $(document).ready(function () {
           round();
         });
 
+      
+
 
 
 
@@ -125,8 +139,11 @@ $(document).ready(function () {
 
       }
 
+     
+      
 
     }); // END OF $(document).on("keyup", function(event){
+      
 
   }
 
