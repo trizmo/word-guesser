@@ -3,6 +3,7 @@
 $(document).ready(function () {
   $("#nextRound").show();
   const wordList = ["hendricks", "bighetti", "dinesh", "gilfoyle", "monica", "jared", "gavin", "bachman", "bream", "gregory", "raviga", "compression", "hooli", "weissman"];
+  const clue = ["mastermind behind the algo", "aka big head", "the tesla guy", "jesus freak", "their only female friend", "this guy f*@%s", "gavin", "steve jobs", "the money robot", "cicadas", "their main source of income", "the entire reason why they're doing this", "their biggest competitor", "the proof!"];
   // var gameStatus = true; //game is on
   var roundNo = 0;
   $("#roundDisp").html(roundNo);
@@ -12,7 +13,7 @@ $(document).ready(function () {
   var randWord = "x";
   var userWord = "y";
   var gameStatus = true;
-  var lives = 5;
+  var lives = 8;
 
 
   // IN GAME MUSIC AND SOUNDS
@@ -44,7 +45,7 @@ $(document).ready(function () {
   function round() {
     roundNo++
     gameStatus = true;
-    lives = 5;
+    lives = 8;
     placeHolder = [];
     wrongGuess = [];
     mysteryWord = [];
@@ -62,6 +63,7 @@ $(document).ready(function () {
     //PICKING MYSTERYWORD AND POSTING PLACEHOLDER
     var rand = Math.floor(Math.random() * wordList.length);
     mysteryWord = wordList[rand].split("");
+    $("#clue").html(clue[rand]);
     for (let i = 0; i < mysteryWord.length; i++) {
       placeHolder.push("_");
       $("#wordDisp").html(placeHolder);
@@ -83,6 +85,17 @@ $(document).ready(function () {
       } else {
         wrongGuess.push(userGuess);
         lives--
+
+        if(lives === 0){
+          if(confirm("GAME OVER! Try Again?")){
+            location.reload()
+          }else{
+            location.assign("https://www.github.com/trizmo")
+          }
+
+        }
+
+
         console.log("lives remaining: " + lives)
         $("#lives").html(lives);
         $("#wrongLetters").prepend("<p class='tryagain'>" + userGuess + "</p><hr>");

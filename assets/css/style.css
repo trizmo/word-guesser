@@ -18,6 +18,11 @@ h1 {
 
 }
 
+#clue {
+  font-size: 3.5rem;
+  font-family: 'Russo One', sans-serif;
+}
+
 .infoDisp {
   color: darkred;
   font-family: 'Days One', sans-serif;
